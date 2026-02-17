@@ -27,7 +27,7 @@ print(f"{quantity} {item} at {price_per_item} each cost $ {total_price} in total
 customer_name = "Rahul"
 account_balance = 15000
 transaction_amount = 2500
-transaction_type = "withdrawal" 
+transaction_type = "deposit" 
 transaction_successful = True
 currency = "INR"
 low_balance_warning = " "
@@ -35,7 +35,7 @@ low_balance_warning = " "
 if transaction_type == "withdrawal"and transaction_successful:
     account_balance -= transaction_amount
     status = "successful"
-elif transaction_type1 == "deposit" and transaction_successful:
+elif transaction_type == "deposit" and transaction_successful:
     account_balance += transaction_amount  
     status = "successful"
 else : 
