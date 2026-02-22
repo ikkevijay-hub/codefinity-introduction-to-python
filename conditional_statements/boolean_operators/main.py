@@ -173,4 +173,84 @@ else:
     for r in reason:
         print("-", r)
 
+
+age = 67
+heart_rate = 130              # bpm
+blood_pressure_systolic = 85  # mmHg
+oxygen_level = 88             # %
+temperature = 39.5            # Celsius
+is_unconscious = False
+has_chest_pain = True
+has_severe_bleeding = False
+accident_case = True
+pregnant = False
+chronic_disease = True
+pain_scale = 9                # 1 to 10
+arrival_mode = "ambulance"    # walk-in / ambulance
+
+reason=[]
+
+stable_condition = ("Patient is a Senior Citizen" + "Normal Blood Pressure" + "High Fever" + "Patient is Conscious" + "Mild Pain")
+urgent_Condition = ("Patient is a Senior Citizen" + "Critical Patient Heart Rate more then 100 BPM" + "Elevated Blood Pressure" + "Low Oxygen Level" + "Has Chest Pain" + "Patient is Pregnant"
+"Patient has Chronic Disease" + "Moderate Pain")
+critical_condition = ("Patient is a Senior Citizen" + "1 Hypertension Blood Pressure" + "Patient has Severe Bleeding" + "Accident Case" + "Severe Pain" + "Patient came in Ambulance")
+
+if not age <= 60:
+    reason.append("Patient is a Senior Citizen")
+if heart_rate >= 100:
+    reason.append("Critical Patient Heart Rate more then 100 BPM")
+if blood_pressure_systolic <= 120:
+    severity = "Normal"
+    reason.append("Normal Blood Pressure")
+if 120 <= blood_pressure_systolic <=129:
+    severity="Elevated"
+    reason.append("Elevated Blood Pressure")
+elif 130 <= blood_pressure_systolic <= 139:
+    severity = "1 Hypertension"
+    reason.append("1 Hypertension Blood Pressure")
+else:
+    severity = "Invalid Input"
+if oxygen_level < 90:
+    reason.append("Low Oxygen Level")
+if temperature >=39.5:
+    reason.append("High Fever")
+if is_unconscious:
+    reason.append("Patient is Conscious")
+if has_chest_pain:
+    reason.append("Has Chest Pain")
+if has_severe_bleeding:
+    reason.append("Patient has Severe Bleeding")
+if accident_case:
+    reason.append("Accident Case")
+if pregnant:
+    reason.append("Patient is Pregnant")
+if chronic_disease:
+    reason.append("Patient has Chronic Disease")
+if 1 <= pain_scale <= 3:
+    severity = "Mild"
+elif 4 <= pain_scale <= 6:
+    severity = "Moderate"
+elif 7 <= pain_scale <= 10:
+    severity = "Severe"
+else:
+    severity = "Invalid Input"
+if arrival_mode:
+    reason.append("Patient came in Ambulance")
+
+if len(reason) ==0:
+    print("Patient is Stable Condition")
+else:
+    print("Patient needs Urgent Attention")
+    print("Reasons:")
+    for r in reason:
+        print("-", r)
+
+if len(reason) == stable_condition:
+    print("Patient is in Stable Condition")
+elif reason == urgent_Condition:
+    print("Patient needs urgent attention")
+elif reason == critical_condition:
+    print("Patient is in critical contition")
+else:
+    print("Patient can be discharged")
                                                                              
