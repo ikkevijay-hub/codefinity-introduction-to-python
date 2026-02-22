@@ -190,16 +190,28 @@ arrival_mode = "ambulance"    # walk-in / ambulance
 
 reason=[]
 
-stable_condition = ("Patient is a Senior Citizen" + "Normal Blood Pressure" + "High Fever" + "Patient is Conscious" + "Mild Pain")
-urgent_Condition = ("Patient is a Senior Citizen" + "Critical Patient Heart Rate more then 100 BPM" + "Elevated Blood Pressure" + "Low Oxygen Level" + "Has Chest Pain" + "Patient is Pregnant"
-"Patient has Chronic Disease" + "Moderate Pain")
-critical_condition = ("Patient is a Senior Citizen" + "1 Hypertension Blood Pressure" + "Patient has Severe Bleeding" + "Accident Case" + "Severe Pain" + "Patient came in Ambulance")
+urgent_Condition = (age > 60  or 
+                    blood_pressure_systolic >=120 or 
+                    oxygen_level <90 or
+                    has_chest_pain or
+                    pregnant or
+                    chronic_disease or
+                    pain_scale >=4 or
+                   heart_rate >= 100) 
+critical_condition = (age > 60 or 
+                      blood_pressure_systolic >= 130 or 
+                      has_severe_bleeding or 
+                      arrival_mode or pain_scale >= 7)        
+stable_condition = not critical_condition and not urgent_condition
 
-if not age <= 60:
+if age >= 60:
     reason.append("Patient is a Senior Citizen")
 if heart_rate >= 100:
     reason.append("Critical Patient Heart Rate more then 100 BPM")
-if blood_pressure_systolic <= 120:
+if blood_pressure_systolic <=90:
+    severity = "Very Low Blood Pressure"
+    reason.append("Low Blood Pressure")
+if blood_pressure_systolic >= 120:
     severity = "Normal"
     reason.append("Normal Blood Pressure")
 if 120 <= blood_pressure_systolic <=129:
@@ -215,7 +227,7 @@ if oxygen_level < 90:
 if temperature >=39.5:
     reason.append("High Fever")
 if is_unconscious:
-    reason.append("Patient is Conscious")
+    reason.append("Patient is Unconscious")
 if has_chest_pain:
     reason.append("Has Chest Pain")
 if has_severe_bleeding:
@@ -234,7 +246,7 @@ elif 7 <= pain_scale <= 10:
     severity = "Severe"
 else:
     severity = "Invalid Input"
-if arrival_mode:
+if arrival_mode == "ambulance":
     reason.append("Patient came in Ambulance")
 
 if len(reason) ==0:
@@ -245,12 +257,10 @@ else:
     for r in reason:
         print("-", r)
 
-if len(reason) == stable_condition:
-    print("Patient is in Stable Condition")
-elif reason == urgent_Condition:
-    print("Patient needs urgent attention")
-elif reason == critical_condition:
-    print("Patient is in critical contition")
+if critical_condition:
+    print("Patient is in CRITICAL condition")
+elif urgent_condition:
+    print("Patient needs URGENT attention")
 else:
-    print("Patient can be discharged")
+    print("Patient is STABLE")
                                                                              
