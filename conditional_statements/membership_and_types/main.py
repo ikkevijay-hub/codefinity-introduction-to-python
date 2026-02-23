@@ -44,4 +44,49 @@ if len(error) == 0:
 else:
     print("Invalid User")
     print("Errors:", error)
+
+print("################################################")
+# Write conditions to check:
+# - Is deployment allowed from this branch?
+# - Is the command restricted?
+# - Is the package installed?
+
+approved_branches = ["main", "release", "hotfix"]
+restricted_commands = ["rm -rf /", "shutdown", "reboot"]
+installed_packages = ["nginx", "docker", "python3"]
+target_environment = "prod"
+
+current_branch = "feature-login"
+entered_command = "shutdown"
+package_to_check = "docker"
+
+error=[]
+
+if current_branch not in approved_branches:
+    print("Feature Login Branch not included")
+    error.append("Incorrect Branch")
+
+if target_environment == "prod":
+    if current_branch == "main":
+        print("Production Deployment Allowed ✅")
+    else:
+        print("Only main branch can deploy to production ❌")
+else:
+    print("Non-production deployment allowed")
+    
+
+if entered_command in restricted_commands:
+    print("Shutdown is Not Allowed")
+    error.append("Shutdown Disabled")
+
+if package_to_check in installed_packages:
+    print("Packed is Installed")
+    error.append("Package Installed")
+
+if len(error) == 0:
+    print("DevOps Deployment Validated")
+else:
+    print("DevOps Deployment Failed")
+    print("Errors:", error)
+
  
