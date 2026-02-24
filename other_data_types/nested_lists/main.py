@@ -70,18 +70,65 @@ target_environment = "prod"
 entered_command = "docker build"
 required_package = "docker"
 build_id = "prod-build-311"
+error=[]
+development_successfull = error in [approved_branches, authorized_roles, 
+                           blocked_ips, active_environments,installed_packages]
+development_failed = error not in [approved_branches, authorized_roles, 
+                           blocked_ips, active_environments,installed_packages]
 
-#User role authorized_roles मध्ये असावा.
-#User IP blocked_ips मध्ये नसावा.
-#Production deployment फक्त "main" branch वरून होईल.
-#entered_command restricted_commands मध्ये नसावा.
-#target_environment active_environments मध्ये असावा.
-#required_package installed_packages मध्ये असावा.
-#build_id deployment_history मध्ये नसावा.
-#जर कोणताही rule fail झाला → Deployment Failed + errors list print करा
-#सगळं valid असेल → Deployment Successful + build_id history मध्ये add करा
+if user_role in authorized_roles:
+    print("User Role Authorised")
+else:
+    print("User not Authorised")
+    error.append("User not Authorised")
+if user_ip in blocked_ips:
+    print("User IP in Blocked IPs")
+else:
+    print("Valid Ip address")
+    error.append("User IP in Blocked IPs")
+if current_branch not in approved_branches or current_branch in approved_branches:
+    print("Feature Branch not permitted")
+else:
+    print("Only main Brach permitted for deployment")
+    error.append("Feature Branch not permitted on PROD")
+if entered_command not in restricted_commands:
+    print("Docker build is permitted")
+else:
+    print("Docker build not Permitted")
+    error.append("Docker build not Permitted")
+active_environments.append(target_environment)
+print(active_environments)
+installed_packages.append(required_package)
+print(installed_packages)
 
-if user_role not in authorized_roles:
-    print
+if build_id in deployment_history:
+    print("prod-build-311 not in Develoyment History")
+else:
+    print("prod-build-311 is already Deployed")
+    error.append("prod-build-311 not in Develoyment History")
+
+if development_successfull and build_id:
+    print("Deployment Successful + build_id history")
+    error.append == 0
+    print(error)
+elif development_failed and error:
+    print("Deployment failed")
+    error.append == 0
+    print(error)
+else:
+    print("Deplyment Needs to be rescheduled")
+
+
+
+
+
+    
+
+    
+    
+
+
+
+    
 
 
