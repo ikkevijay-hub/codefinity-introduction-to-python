@@ -120,7 +120,7 @@ else:
     
 if len(error) == 0:
     print("Deployment Successful")
-    deployment_history.append(build_id)
+    #deployment_history.append(build_id)
 else:
     print("Deployment Failed")
     print("Errors:", error)
