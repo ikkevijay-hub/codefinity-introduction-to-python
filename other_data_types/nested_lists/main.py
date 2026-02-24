@@ -48,9 +48,40 @@ print(pipeline_stages.count("deploy"))
 pipeline_stages.index("test")
 print(pipeline_stages.index("test"))
 
+print("#############################################################")
 
+approved_branches = ["main", "release", "hotfix"]
+restricted_commands = ["rm -rf /", "shutdown", "reboot", "kill -9"]
+authorized_roles = ["devops", "release-manager", "admin"]
+blocked_ips = ["192.168.10.15", "10.0.0.8"]
+active_environments = ["dev", "uat", "prod"]
+installed_packages = ["docker", "nginx", "python3", "terraform"]
 
+deployment_history = [
+    "dev-build-101",
+    "uat-build-205",
+    "prod-build-310"
+]
 
+user_role = "devops"
+user_ip = "10.0.0.8"
+current_branch = "feature-payment"
+target_environment = "prod"
+entered_command = "docker build"
+required_package = "docker"
+build_id = "prod-build-311"
 
+#User role authorized_roles मध्ये असावा.
+#User IP blocked_ips मध्ये नसावा.
+#Production deployment फक्त "main" branch वरून होईल.
+#entered_command restricted_commands मध्ये नसावा.
+#target_environment active_environments मध्ये असावा.
+#required_package installed_packages मध्ये असावा.
+#build_id deployment_history मध्ये नसावा.
+#जर कोणताही rule fail झाला → Deployment Failed + errors list print करा
+#सगळं valid असेल → Deployment Successful + build_id history मध्ये add करा
+
+if user_role not in authorized_roles:
+    print
 
 
