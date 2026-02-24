@@ -32,11 +32,38 @@ blocked_ips = ["192.168.5.10", "10.1.1.7"]
 restricted_commands = ["rm -rf /", "shutdown", "reboot"]
 installed_packages = ["docker", "nginx", "python3", "terraform"]
 
+user_role = "release-manager"
+user_ip = "10.1.1.7"
+current_branch = "feature-auth"
+target_environment = "prod"
+entered_command = "reboot"
+required_packages = ["docker", "kubectl"]
+build_id = "prod-build-701"
+
 deployment_history = [
     "dev-build-501",
     "uat-build-620",
     "prod-build-700"
 ]
-
 error = []
 
+if user_role in authorized_roles:
+    print("Authorized User")
+else:
+    print("User not Authorized")
+    error.append("User not Permitted")
+
+if user_ip in blocked_ips:
+    print("User IP is Blocked")
+    error.append("User IP is Blocked")
+else:
+    print("Valid IP Address")
+
+if target_environment in active_environments:
+    print("Valid Environment")
+else:
+    print("Invalid Environment")
+    error.append("Invalid Environment")
+
+if active_environments in approved_branches:
+    print(" ")
