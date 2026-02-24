@@ -31,6 +31,7 @@ authorized_roles = ["devops", "release-manager", "admin"]
 blocked_ips = ["192.168.5.10", "10.1.1.7"]
 restricted_commands = ["rm -rf /", "shutdown", "reboot"]
 installed_packages = ["docker", "nginx", "python3", "terraform"]
+active_environments = ["dev", "uat", "prod"]
 
 user_role = "release-manager"
 user_ip = "10.1.1.7"
@@ -65,5 +66,11 @@ else:
     print("Invalid Environment")
     error.append("Invalid Environment")
 
-if active_environments in approved_branches:
-    print(" ")
+if current_branch in active_environments[0]:
+    print("Any Branch Permitted")
+elif current_branch in active_environments[1]:
+    print("Only Approved Branches permitted ")
+elif current_branch in active_environments[2]:
+    print("Only Approved Main Branches permitted")
+else:
+    print("Invalid Branch")
