@@ -66,57 +66,64 @@ deployment_history = [
 user_role = "devops"
 user_ip = "10.0.0.8"
 current_branch = "feature-payment"
+production_branch = "main"
 target_environment = "prod"
 entered_command = "docker build"
 required_package = "docker"
 build_id = "prod-build-311"
 error=[]
-development_successfull = error in [approved_branches, authorized_roles, 
-                           blocked_ips, active_environments,installed_packages]
-development_failed = error not in [approved_branches, authorized_roles, 
-                           blocked_ips, active_environments,installed_packages]
 
-if user_role in authorized_roles:
-    print("User Role Authorised")
-else:
-    print("User not Authorised")
+if user_role not in authorized_roles:
+    print("User not role Authorised")
     error.append("User not Authorised")
+else:
+    print("User Role Authorised")
+        
 if user_ip in blocked_ips:
     print("User IP in Blocked IPs")
+    error.append("User IP in Blocked IPs")
 else:
     print("Valid Ip address")
-    error.append("User IP in Blocked IPs")
-if current_branch not in approved_branches or current_branch in approved_branches:
+        
+if production_branch not in approved_branches:
     print("Feature Branch not permitted")
+    error.append("Feature Branch not permitted on PROD")
+elif production_branch in approved_branches:
+    print("Main Branch Deployment approved")
 else:
     print("Only main Brach permitted for deployment")
-    error.append("Feature Branch not permitted on PROD")
+    
+    
 if entered_command not in restricted_commands:
     print("Docker build is permitted")
 else:
     print("Docker build not Permitted")
     error.append("Docker build not Permitted")
-active_environments.append(target_environment)
-print(active_environments)
-installed_packages.append(required_package)
-print(installed_packages)
 
-if build_id in deployment_history:
-    print("prod-build-311 not in Develoyment History")
+if target_environment in active_environments:
+    print("Prod Environment in Active Environment")
+else:
+    print("Prod Environment not in Active Environment")
+    error.append("Prod Environment not in Active Environment")
+    
+if required_package in installed_packages:
+    print("Package is Already installed")
+else:
+    print("Package not installed")
+    error.append("Package not Permitted to be instaled")
+
+if build_id not in deployment_history:
+    print("Develoyment not in History")
+    error.append("prod-build-311 not in Develoyment History")
 else:
     print("prod-build-311 is already Deployed")
-    error.append("prod-build-311 not in Develoyment History")
-
-if development_successfull and build_id:
-    print("Deployment Successful + build_id history")
-    error.append == 0
-    print(error)
-elif development_failed and error:
-    print("Deployment failed")
-    error.append == 0
-    print(error)
+    
+if len(error) == 0:
+    print("Deployment Successful")
+    deployment_history.append(build_id)
 else:
-    print("Deplyment Needs to be rescheduled")
+    print("Deployment Failed")
+    print("Errors:", error)
 
 
 
