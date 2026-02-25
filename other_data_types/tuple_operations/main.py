@@ -111,4 +111,42 @@ if len(error) == 0:
     deployment_history.append(build_id) 
 else:print("Deployment Failed")
 print("Errors:", error)
-    
+
+print("###################################################")
+
+#allowed_project_types = ("web", "mobile", "api")
+allowed_project_types = ("web", "mobile", "api")
+allowed_environments = ("dev", "test", "prod")
+production_allowed_managers = ("senior-manager", "director")
+mandatory_prod_branch = ("main",)
+
+#Mutable Configuration (Lists)
+approved_branches = ["main", "release", "hotfix"]
+authorized_roles = ["developer", "qa", "project-manager", "senior-manager"]
+blocked_users = ["user102", "user207"]
+restricted_tools = ["ftp-upload", "direct-db-edit", "force-push"]
+installed_tools = ["git", "docker", "jira", "sonarqube"]
+
+project_history = [
+    "web-app-v1.0",
+    "api-service-v2.1",
+    "mobile-app-v3.4"]
+
+#Incoming Project Request
+project_name = "web-app-v1.1"
+project_type = "web"
+target_environment = "prod"
+current_branch = "feature-payment"
+user_role = "project-manager"
+project_owner = "user102"
+tools_required = ["git", "docker", "kubernetes"]
+selected_tool = "force-push"
+
+if project_type in allowed_project_types:
+    print("WEB Project Type Allowed")
+
+if target_environment in active_environments: 
+    print("Valid Environment") 
+else: print("Invalid Environment") 
+    error.append("Invalid Environment")
+
