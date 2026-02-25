@@ -150,7 +150,7 @@ else:
     print("WEB Project Type not Allowed")
     error.append("WEB Project Type not Allowed")
 
-if target_environment in active_environments: 
+if target_environment in allowed_environments: 
     print("Valid Environment") 
 else: 
     print("Invalid Environment") 
@@ -162,18 +162,11 @@ else:
     print("User not Authorized")
     error.append("User not Permitted")
 
-role = False
-
-for existing_role in user_role:
-    if existing_role == production_allowed_managers:
-        role = True
-        break
-        
-if user_role in production_allowed_managers:
-    print("User Permitted for Prod Release")
-else:
-    print("User not Permitted for Prod Release")
-    error.append("User not Permitted for Prod Release")
+if target_environment == "prod":
+    if user_role not in production_allowed_managers:
+        error.append("User not permitted for Production Release")
+    else:
+        print("User permitted for Production Release")
 
 if project_owner in blocked_users:
     print("User is blocked")
@@ -183,10 +176,10 @@ else:
 
 if target_environment == "dev":
     print("DEV: Any branch permitted")
-elif target_environment == "uat":
+elif target_environment == "test":
     if current_branch not in approved_branches:
-        print("UAT: Only approved branches allowed")
-        error.append("Invalid branch for UAT")
+        print("test: Only approved branches allowed")
+        error.append("Invalid branch for test")
     else:
         print("UAT: Branch Approved")
 elif target_environment == "prod":
@@ -209,6 +202,14 @@ for tool in tools_required:
     else:
         print(f"{tool} is available")
 
-for project in project_name:
-    if project not in project_history:
-        print(f"{project} not included in Project History")
+if project_name in project_history:
+    print("Project not included in Project History")
+    error.append("Project not included in Project History")
+else:
+    print("Project included in Project History")
+
+if len(error) == 0: 
+    print("Deployment Successful")
+else:print("Deployment Failed")
+print("Errors:", error)
+
