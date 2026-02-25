@@ -31,7 +31,6 @@ authorized_roles = ["devops", "release-manager", "admin"]
 blocked_ips = ["192.168.5.10", "10.1.1.7"]
 restricted_commands = ["rm -rf /", "shutdown", "reboot"]
 installed_packages = ["docker", "nginx", "python3", "terraform"]
-active_environments = ["dev", "uat", "prod"]
 
 user_role = "release-manager"
 user_ip = "10.1.1.7"
@@ -66,11 +65,50 @@ else:
     print("Invalid Environment")
     error.append("Invalid Environment")
 
-if current_branch in active_environments[0]:
-    print("Any Branch Permitted")
-elif current_branch in active_environments[1]:
-    print("Only Approved Branches permitted ")
-elif current_branch in active_environments[2]:
-    print("Only Approved Main Branches permitted")
+if target_environment == "dev":
+    print("DEV: Any branch permitted")
+elif target_environment == "uat":
+    if current_branch not in approved_branches:
+        print("UAT: Only approved branches allowed")
+        error.append("Invalid branch for UAT")
+    else:
+        print("UAT: Branch Approved")
+elif target_environment == "prod":
+    if current_branch not in production_only_branch:
+        print("PROD: Only main branch allowed")
+        error.append("Invalid branch for PROD")
+    else:
+        print("PROD: Branch Approved")
 else:
-    print("Invalid Branch")
+    print("Invalid Environment for Branch Validation")
+
+if entered_command in restricted_commands:
+    print("Reboot Command not accepted")
+    error.append("Reboot Command not accepted")
+
+for package in required_packages:
+    if package not in installed_packages:
+        print(f"{package} is not installed")
+        error.append(f"{package} not installed")
+    else:
+        print(f"{package} is installed")
+
+build_exists = False
+
+for existing_build in deployment_history:
+    if existing_build == build_id:
+        build_exists = True
+        break
+
+if build_exists:
+    print("Build already deployed")
+    error.append("Build already deployed")
+else:
+    print("New build - safe to deploy")
+    
+if len(error) == 0: 
+    print("Deployment Successful")
+    deployment_history.append(build_id) 
+else:print("Deployment Failed")
+print("Errors:", error)
+    
