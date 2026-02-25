@@ -142,11 +142,73 @@ project_owner = "user102"
 tools_required = ["git", "docker", "kubernetes"]
 selected_tool = "force-push"
 
+error=[]
+
 if project_type in allowed_project_types:
     print("WEB Project Type Allowed")
+else:
+    print("WEB Project Type not Allowed")
+    error.append("WEB Project Type not Allowed")
 
 if target_environment in active_environments: 
     print("Valid Environment") 
-else: print("Invalid Environment") 
+else: 
+    print("Invalid Environment") 
     error.append("Invalid Environment")
 
+if user_role in authorized_roles:
+    print("Authorized User")
+else:
+    print("User not Authorized")
+    error.append("User not Permitted")
+
+role = False
+
+for existing_role in user_role:
+    if existing_role == production_allowed_managers:
+        role = True
+        break
+        
+if user_role in production_allowed_managers:
+    print("User Permitted for Prod Release")
+else:
+    print("User not Permitted for Prod Release")
+    error.append("User not Permitted for Prod Release")
+
+if project_owner in blocked_users:
+    print("User is blocked")
+    error.append("User is blocked")
+else:
+    print("User should be permitted" )
+
+if target_environment == "dev":
+    print("DEV: Any branch permitted")
+elif target_environment == "uat":
+    if current_branch not in approved_branches:
+        print("UAT: Only approved branches allowed")
+        error.append("Invalid branch for UAT")
+    else:
+        print("UAT: Branch Approved")
+elif target_environment == "prod":
+    if current_branch not in mandatory_prod_branch:
+        print("PROD: Only main branch allowed")
+        error.append("Invalid branch for PROD")
+    else:
+        print("PROD: Branch Approved")
+else:
+    print("Invalid Environment for Branch Validation")
+    
+if selected_tool in restricted_tools:
+    print("Force Push not Allowed")
+    error.append("Force Push not Allowed")
+     
+for tool in tools_required:
+    if tool not in installed_tools:
+        print(f"{tool} is not available")
+        error.append(f"{tool} is not available")
+    else:
+        print(f"{tool} is available")
+
+for project in project_name:
+    if project not in project_history:
+        print(f"{project} not included in Project History")
