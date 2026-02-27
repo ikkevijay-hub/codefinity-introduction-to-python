@@ -77,21 +77,16 @@ def validate_user(username):
 
 print(validate_user("user101"))
 
-def project_type (project_name):
-    if project_type in project_registry:
-        print("Project found in registry")        
+def project_name(project_registry):
+    project_type = project_registry[payment-api]
+    if project_type in allowed_project_types:
+        print("Project found in registry and Allowed in Project Types")        
     else:
-        print("Project not found in registry")
-        error.append("Project not found in registry")
-        
-def project_info (project_registry):
-    if project_info in allowed_project_types:
-        print("Project type permitted")
-    else:
-        print("Project type not permitted")
-        
-print(project_type("payment-api"))
-print(project_info("payment-api"))
+        print("Project not found in registry and not Allowed in Project Types")
+        error.append("Project not found in registry and not Allowed in Project Types")
+      
+print(project_name("payment-api"))
+
 
 
 #print("Errors:", error)
