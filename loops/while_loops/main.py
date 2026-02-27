@@ -145,3 +145,51 @@ else:
 
 
 
+#Immutable Configuration (Tuples)
+allowed_environments = ("dev", "test", "stage", "prod")
+allowed_project_types = ("web", "api", "mobile", "data")
+production_only_branches = ("main", "release")
+sensitive_environments = ("stage", "prod")
+
+#Mutable Configuration (Lists)
+approved_test_branches = ["main", "develop", "release"]
+authorized_roles = ["developer", "qa", "manager", "admin"]
+blocked_users = ["user900", "user404"]
+restricted_actions = ["force-delete-db", "shutdown-server"]
+installed_tools = ["docker", "git", "nginx", "postgres"]
+required_tools = ["docker", "git", "kubernetes"]
+
+#Dictionary Configuration (Database Style Data)
+user_database = {
+    "user101": {"role": "developer", "department": "engineering"},
+    "user202": {"role": "manager", "department": "engineering"},
+    "user303": {"role": "qa", "department": "testing"},
+    "user900": {"role": "developer", "department": "engineering"}
+}
+
+environment_limits = {
+    "dev": 5,
+    "test": 3,
+    "stage": 2,
+    "prod": 1
+}
+
+project_registry = {
+    "payment-api": {"type": "api", "owner": "user101"},
+    "frontend-app": {"type": "web", "owner": "user202"},
+    "analytics-data": {"type": "data", "owner": "user303"}
+}
+
+#Incoming Dynamic Deployment Request
+#(These should be passed dynamically into functions 👇)
+
+username = "user101"
+project_name = "payment-api"
+target_environment = "prod"
+current_branch = "feature-payment"
+requested_action = "force-delete-db"
+number_of_instances = 2
+
+def validate_user(username):
+    if username == "user101":
+        print("Valid user")
