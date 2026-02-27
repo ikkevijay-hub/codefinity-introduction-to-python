@@ -74,18 +74,27 @@ def validate_user(username):
         print("User Role is Authorized")
     else:
         print("User Role not Authorized")
+        error.append("User Role not Authorized")
 
 print(validate_user("user101"))
 
-def project_name(project_registry):
-    project_type = project_registry[payment-api]
-    if project_type in allowed_project_types:
-        print("Project found in registry and Allowed in Project Types")        
+def validate_project(project_name):
+    if project_name in project_registry:
+        print("Project found in Project registry")
     else:
-        print("Project not found in registry and not Allowed in Project Types")
-        error.append("Project not found in registry and not Allowed in Project Types")
-      
-print(project_name("payment-api"))
+        print("Project Not found in Project registry")
+        error.append("Project Not found in Project registry")
+    if project_name in project_registry:
+        project_type = project_registry["payment-api"]["type"]
+    if project_type in allowed_project_types:
+        print("Project in Allowed Project Types")
+    else:
+        print("Project Not Allowed Project Types")
+        error.append("Project Not Allowed Project Types")
+
+print(validate_project("payment-api"))
+
+def validation_environment(target)
 
 
 
