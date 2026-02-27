@@ -68,6 +68,32 @@ def validate_user(username):
     else:
         print("User in Blocked User List")
         error.append("User in Blocked User List")
+    if username in user_database:
+        user_role = user_database[username]["role"]
+    if user_role in authorized_roles:
+        print("User Role is Authorized")
+    else:
+        print("User Role not Authorized")
 
+print(validate_user("user101"))
+
+def project_type (project_name):
+    if project_type in project_registry:
+        print("Project found in registry")        
+    else:
+        print("Project not found in registry")
+        error.append("Project not found in registry")
+        
+def project_info (project_registry):
+    if project_info in allowed_project_types:
+        print("Project type permitted")
+    else:
+        print("Project type not permitted")
+        
+print(project_type("payment-api"))
+print(project_info("payment-api"))
+
+
+#print("Errors:", error)
 
 
