@@ -12,92 +12,118 @@ print(countdown_values)
 print("##############################################################")
 
 #Immutable Configuration (Tuples)
-allowed_environments = ("dev", "test", "stage", "prod")
-allowed_project_types = ("web", "api", "mobile", "data")
-production_only_branches = ("main", "release")
-sensitive_environments = ("stage", "prod")
-
-#Mutable Configuration (Lists)
-approved_test_branches = ["main", "develop", "release"]
-authorized_roles = ["developer", "qa", "manager", "admin"]
+allowed_departments = ("engineering", "finance", "hr")
+admin_roles = ("admin", "superadmin")
+restricted_features = ("delete-user", "modify-salary")
+#Mutable Data (Lists)
 blocked_users = ["user900", "user404"]
-restricted_actions = ["force-delete-db", "shutdown-server"]
-installed_tools = ["docker", "git", "nginx", "postgres"]
-required_tools = ["docker", "git", "kubernetes"]
-
-#Dictionary Configuration (Database Style Data)
+logged_in_users = ["user101", "user202"]
+#Dictionary (Database)
 user_database = {
     "user101": {"role": "developer", "department": "engineering"},
-    "user202": {"role": "manager", "department": "engineering"},
-    "user303": {"role": "qa", "department": "testing"},
-    "user900": {"role": "developer", "department": "engineering"}
+    "user202": {"role": "manager", "department": "finance"},
+    "user303": {"role": "hr", "department": "hr"},
 }
-
-environment_limits = {
-    "dev": 5,
-    "test": 3,
-    "stage": 2,
-    "prod": 1
-}
-
-project_registry = {
-    "payment-api": {"type": "api", "owner": "user101"},
-    "frontend-app": {"type": "web", "owner": "user202"},
-    "analytics-data": {"type": "data", "owner": "user303"}
-}
-#Incoming Dynamic Deployment Request
-#(These should be passed dynamically into functions 👇)
-
-username = "user101"
-project_name = "payment-api"
-target_environment = "prod"
-current_branch = "feature-payment"
-requested_action = "force-delete-db"
-number_of_instances = 2
+#Dynamic Request
+username = "user202"
+requested_feature = "modify-salary"
 
 error=[]
 
-def validate_user(username):
-    if username in user_database:
-        print("Valid user")
-    else:
-        print("Invalid user")
-        error.append("Invalid user")
-    if username not in blocked_users:
-        print("User not in Blocked User List")
-    else:
+def validate_user(username, requested_feature):
+    
+    if username not in user_database:
+        print("User Name not in User Database")
+        error.append("User Name not in User Database")
+        return
+    
+    print("User Name in User Database")
+
+    if username in blocked_users:
         print("User in Blocked User List")
         error.append("User in Blocked User List")
-    if username in user_database:
+    else:
+        print("User not in Blocked User List")
+
+    if username not in logged_in_users:
+        print("User Not Logged in")
+        error.append("User Not Logged in")
+    else:
+        print("User Logged in")
+
+    # Correct way: check department
+    user_department = user_database[username]["department"]
+
+    if user_department not in allowed_departments:
+        print("User Department not allowed")
+        error.append("User Department not allowed")
+    else:
+        print("User Department allowed")
+
+    # Restricted feature logic
+    if requested_feature in restricted_features:
         user_role = user_database[username]["role"]
-    if user_role in authorized_roles:
-        print("User Role is Authorized")
+        
+        if user_role not in admin_roles:
+            print("Only admin can access restricted feature")
+            error.append("Restricted feature not allowed")
+        else:
+            print("Admin access granted")
     else:
-        print("User Role not Authorized")
-        error.append("User Role not Authorized")
+        print("Feature is not restricted")
+print(validate_user(username, requested_feature))
+          
+if len(error) == 0:
+    print("user can access a system feature")
+else:
+    print("user cannnot access a system feature")
+    print("Error :", error)
 
-print(validate_user("user101"))
+print("###################################")
 
-def validate_project(project_name):
-    if project_name in project_registry:
-        print("Project found in Project registry")
+#Tuples
+mandatory_tools = ("docker", "git", "kubernetes")
+optional_tools = ("helm", "terraform")
+#Lists
+installed_tools = ["docker", "git"]
+failed_tools = []
+#Dictionary
+environment_requirements = {
+    "dev": {"min_tools": 2},
+    "prod": {"min_tools": 3}
+}
+#Dynamic Request
+target_environment = "prod"
+
+error=[]
+
+count = 0
+
+for tool in mandatory_tools:
+    if tool in installed_tools:
+        print(f"{tool} is installed")
+        count += 1
     else:
-        print("Project Not found in Project registry")
-        error.append("Project Not found in Project registry")
-    if project_name in project_registry:
-        project_type = project_registry["payment-api"]["type"]
-    if project_type in allowed_project_types:
-        print("Project in Allowed Project Types")
+        print(f"{tool} is NOT installed")
+        error.append(f"{tool} is NOT installed")
+
+if target_environment in environment_requirements:
+    min_required = environment_requirements[target_environment]["min_tools"]
+
+    if count >= min_required:
+        print(f"{target_environment} requirement satisfied")
     else:
-        print("Project Not Allowed Project Types")
-        error.append("Project Not Allowed Project Types")
+        print(f"{target_environment} requirement NOT satisfied")
+        error.append(f"{target_environment} requirement NOT satisfied")
+else:
+    print("Unknown environment")
+    error.append("Unknown environment")
 
-print(validate_project("payment-api"))
+if len(error) == 0:
+    print("deployment can proceed based on installed tools.")
+else:
+    print("deployment cannot proceed based on installed tools.")
+    print("Error :", error)
 
-def validation_environment(target)
-
-
-
-#print("Errors:", error)
-
+print("###################################")
 
