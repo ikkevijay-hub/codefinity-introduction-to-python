@@ -126,4 +126,61 @@ else:
     print("Error :", error)
 
 print("###################################")
+#Tuples
+allowed_levels = ("beginner", "intermediate", "advanced")
+restricted_courses = ("AI-ML",)
+#Lists
+blocked_students = ["stu900"]
+available_courses = ["Python", "DevOps", "AI-ML"]
+#Dictionary
+student_database = {
+    "stu101": {"level": "beginner", "completed_courses": ["Python"]},
+    "stu202": {"level": "advanced", "completed_courses": ["Python", "DevOps"]},
+}
+#Dynamic Request
+student_id = "stu202"
+course_name = "AI-ML"
+
+error=[]
+
+def validate_user(student_id, student_database, blocked_students):
+    if student_id not in student_database:
+        print("Student ID not in Student Database")
+        error.append("Student ID not in Student Database")
+    else:
+        print("Student ID in Student Database")
+    
+    if student_id in blocked_students:
+        print("Student in Blocked list")
+        error.append("Student in Blocked list")
+    else:
+        print("Student not in Blocked list")
+
+if course_name in available_courses:
+    print(f"{course_name} is in available courses")
+else:
+    print(f"{course_name} is NOT in available courses")
+    error.append(f"{course_name} is NOT in available courses")
+
+if course_name in restricted_courses:
+    levels = student_database[student_id]["level"]
+    if levels == "advanced":
+        print("Restricted course allowed for advanced level")
+    else:
+        print("Restricted Courses not Allowed")
+        error.append("Restricted Courses not Allowed")
+else:
+    print("Course is not restricted")
+
+print(validate_user(student_id, student_database, blocked_students))
+if len(error) == 0:
+    print("Student can enroll in course")
+else:
+    print("Student cannot enroll in course")
+    print("Error :", error)
+        
+
+
+
+        
 
