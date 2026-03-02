@@ -79,4 +79,23 @@ for row in range(1, 6):
 
 print("####################################################################################")
 
+for row in range(5, 0, -1):        
+    for col in range(1, row + 1):  
+        print(col, end=" ")
+    print()
+    
+print("####################################################################################")
 
+for row in range(5, 0, -1):        
+    for col in range(row, 0, - 1):  
+        print(col, end=" ")
+    print()
+    
+print("####################################################################################")
+
+for repeat in range(3):          # repeat 3 times
+    for col in range(5, 0, -1):  # print numbers from 5 down to 1
+        print(col, end=" ")
+    print()  # move to next line after each repetition
+
+print("####################################################################################")
