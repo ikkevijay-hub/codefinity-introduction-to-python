@@ -67,13 +67,46 @@ print(f"Annual Expense: ${yearly_total:.2f}")
 print(f"Budget Approved:", can_afford)
 print("########################################################################")
 
-destination (String): Set to "Japan".
-has_visa (Boolean): Set to True.
-has_passport (Boolean): Set to True.
-age (Integer): Set to 25.
-ticket_price (Float): Set to 800.00.
-banned_countries (List): Set to ["CountryX", "CountryY"].
+destination = "Japan"
+has_visa = True
+has_passport = True
+age = 25
+ticket_price = 800.00
+banned_countries = ["Iran", "Pakistan"]
+status = "Pending"
+
+if has_passport and has_visa:
+    if destination in banned_countries:
+        status = "Entry Denied"
+    else:
+        status = "Entry Approved"
+else:
+    status = "Missing Documents"
+  
+if age <= 18 or age >= 65:
+    ticket_price *=0.80
+elif destination == "Japan" and age < 30:
+    ticket_price *=0.90
+else:
+    print("No Discount")
+            
+if not has_passport:
+            print("Missing Document")
     
+print("Destination:", destination)
+print(f"Entry Status: {status}")
+print(f"Final Ticket Price: ${ticket_price:.2f}")
+print("########################################################################")
+ 
+travelers = [
+    {"name": "Alice", "destination": "Japan", "has_passport": True, "has_visa": True, "age": 25, "price": 800},
+    {"name": "Bob", "destination": "CountryX", "has_passport": True, "has_visa": True, "age": 40, "price": 1000},
+    {"name": "Charlie", "destination": "UK", "has_passport": True, "has_visa": False, "age": 70, "price": 900},
+    {"name": "David", "destination": "Japan", "has_passport": False, "has_visa": True, "age": 17, "price": 800},
+    {"name": "Eve", "destination": "USA", "has_passport": True, "has_visa": True, "age": 12, "price": 1200}
+]
+
+banned_countries = ["CountryX", "CountryY"]    
     
     
 
