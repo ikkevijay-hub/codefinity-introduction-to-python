@@ -17,11 +17,30 @@ revenue_per_product = list(zip(products, revenue))
 def formatted_output(revenue_per_product):
     sorted_list = sorted(revenue_per_product)
     for name, rev in sorted_list:
-        print(f"{name.lower()} has total revenue of ${rev:.1f}")
+       print(f"{name.lower()} has total revenue of ${rev:.1f}")
 formatted_output(revenue_per_product)
 
-print(f"{revenue_per_product} has total revenue of ${revenue}")
+#print(f"{revenue_per_product} has total revenue of ${revenue}")
 
+print("########################################################################")
+
+client_name = "TechCorp Solutions"
+estimated_hours = 40 
+hourly_rate = 125.50 
+is_priority = True 
+
+total_cost = estimated_hours * hourly_rate
+summary_label = client_name + " - Quote"
+rush_fee = 0
+
+if is_priority is True:
+    rush_fee = total_cost + 500    
+else:
+    print("No rush fee Applicable")
+    
+print(f"Client:", summary_label)
+print(f"Total Project Value: ${total_cost:.2f}")
+print(f"High Value Project: ${rush_fee:.2f}")
 
 
 
