@@ -99,15 +99,50 @@ print(f"Final Ticket Price: ${ticket_price:.2f}")
 print("########################################################################")
  
 travelers = [
-    {"name": "Alice", "destination": "Japan", "has_passport": True, "has_visa": True, "age": 25, "price": 800},
-    {"name": "Bob", "destination": "CountryX", "has_passport": True, "has_visa": True, "age": 40, "price": 1000},
+    {"name": "Alice", "destination": "Iran", "has_passport": True, "has_visa": True, "age": 25, "price": 800},
+    {"name": "Bob", "destination": "UK", "has_passport": True, "has_visa": True, "age": 40, "price": 1000},
     {"name": "Charlie", "destination": "UK", "has_passport": True, "has_visa": False, "age": 70, "price": 900},
     {"name": "David", "destination": "Japan", "has_passport": False, "has_visa": True, "age": 17, "price": 800},
     {"name": "Eve", "destination": "USA", "has_passport": True, "has_visa": True, "age": 12, "price": 1200}
 ]
 
-banned_countries = ["CountryX", "CountryY"]    
+banned_countries = ["Pakistan", "Korea"]    
+
+
+for details in travelers:
+    name = details["name"]
+    destination = details["destination"]
+    has_passport = details["has_passport"] 
+    has_visa = details["has_visa"]
+    age = details["age"] 
+    price = details["price"]
+    status = "Pending"
     
+    if has_passport and has_visa:
+        if destination in banned_countries:
+            status = "Denied (Banned)"
+        else:
+            status = "Approved"
+    else:
+        status = "Denied (Missing Documents)"
+    
+    if age <= 18 or age >= 65:
+        price *=0.80
+    elif destination == "Japan" and age < 30:
+        price *=0.90
+        
+    if not has_passport:
+        print(f"!!! SECURITY ALERT: {name} is missing a passport !!!")
+        if not has_passport:
+            price="Nil"
+            print(f"!!! SECURITY ALERT: {name} is missing a passport !!!Final Ticket Price:${price}")
+    else:
+        print(f"{name}:{status}, Final Ticket Price:${price:.2f}")
+        print("-" * 30)
+    
+            
+
+
     
 
 
