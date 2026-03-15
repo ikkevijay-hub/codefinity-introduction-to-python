@@ -139,6 +139,8 @@ for details in travelers:
         print(f"Final Ticket Price: ${price:.2f}")
     
     print("-" * 30)  
+
+#Add not has_visa ##########################################
     
             
 
