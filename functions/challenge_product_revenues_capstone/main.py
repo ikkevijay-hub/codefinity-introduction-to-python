@@ -41,6 +41,41 @@ else:
 print(f"Client:", summary_label)
 print(f"Total Project Value: ${total_cost:.2f}")
 print(f"High Value Project: ${rush_fee:.2f}")
+print("########################################################################")
+
+service_name = "Netflix"
+monthly_cost = 15.99
+account_limit = 4
+is_auto_renew = True
+can_afford = False
+
+if monthly_cost <= 20.00:
+    can_afford = True
+else:
+    print(f"Cannot Afford")
+
+yearly_total = monthly_cost * 12
+
+if is_auto_renew == True:
+    monthly_cost = monthly_cost + 1.50
+     
+display_title = service_name + " Subscription"
+
+print(f"Display Title:", display_title)
+print(f"Updated Monthly Cost: ${monthly_cost:.2f}")
+print(f"Annual Expense: ${yearly_total:.2f}")
+print(f"Budget Approved:", can_afford)
+print("########################################################################")
+
+destination (String): Set to "Japan".
+has_visa (Boolean): Set to True.
+has_passport (Boolean): Set to True.
+age (Integer): Set to 25.
+ticket_price (Float): Set to 800.00.
+banned_countries (List): Set to ["CountryX", "CountryY"].
+    
+    
+    
 
 
 
