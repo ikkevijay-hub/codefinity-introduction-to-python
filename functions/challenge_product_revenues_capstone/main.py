@@ -133,12 +133,12 @@ for details in travelers:
         
     if not has_passport:
         print(f"!!! SECURITY ALERT: {name} is missing a passport !!!")
-        if not has_passport:
-            price="Nil"
-            print(f"!!! SECURITY ALERT: {name} is missing a passport !!!Final Ticket Price:${price}")
+        print(f"Status: {status} | Price: N/A")
     else:
-        print(f"{name}:{status}, Final Ticket Price:${price:.2f}")
-        print("-" * 30)
+        print(f"{name}: {status}")
+        print(f"Final Ticket Price: ${price:.2f}")
+    
+    print("-" * 30)  
     
             
 
